@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/GeorgeCdB/Kerallis#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "discord.js": "^11.5.1",
+    "sqlite3": "^4.1.0"
   }
 }
