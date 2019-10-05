@@ -1,7 +1,7 @@
 {
   "name": "kerallis",
   "version": "1.0.0",
-  "description": "Um bot do Discord desenvolvido usando a API do Discord.",
+  "description": "Um bot para Discord desenvolvido usando a API do Discord.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
