@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/GeorgeCdB/Kerallis/issues"
   },
-  "homepage": "https://github.com/GeorgeCdB/Kerallis#readme"
+  "homepage": "https://github.com/GeorgeCdB/Kerallis#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
