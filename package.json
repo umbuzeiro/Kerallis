@@ -4,7 +4,12 @@
   "description": "Um bot para Discord desenvolvido usando a API do Discord.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "0": "0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "db/*"
+    ]
   },
   "repository": {
     "type": "git",
@@ -13,14 +18,20 @@
   "keywords": [
     "Kerallis"
   ],
-  "author": "GeorgeCdB",
+  "author": "George#2552",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/GeorgeCdB/Kerallis/issues"
   },
   "homepage": "https://github.com/GeorgeCdB/Kerallis#readme",
   "dependencies": {
+    "canvas": "^2.6.0",
     "discord.js": "^11.5.1",
-    "sqlite3": "^4.1.0"
+    "jimp": "^0.8.4",
+    "nodemon": "^1.19.3",
+    "opusscript": "0.0.7",
+    "request": "^2.88.0",
+    "sqlite3": "^4.1.0",
+    "ytdl-core": "^1.0.0"
   }
 }

@@ -1,0 +1,16 @@
+﻿const sqlite3 = require('sqlite3').verbose();
+let config = new sqlite3.Database('./db/config.db');
+module.exports = {
+    checar: async function () {
+        let atv = "";
+        await config.run("CREATE TABLE IF NOT EXISTS config(token text, ativado text, UNIQUE(token, ativado))")
+
+        await config.get("SELECT ativado ativado FROM config", async function (erro, resultado) {
+            if (erro) return console.log("Um erro ocorreu enquanto solicitava dados do SQLite: " + erro.message)
+            atv=resultado;
+            return atv;
+        });
+        return;
+    }
+
+};

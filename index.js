@@ -3,33 +3,49 @@
 //#  Desenvolvido pelo George#2552  #
 //###################################
 
-
 //#     Dependências    #
 const Discord = require("discord.js");
 const fs = require("fs");
-const sqlite3 = require('sqlite3').verbose();
-let config = new sqlite3.Database('./db/config.db');
-//##############################################################
-
-//#     Sistema de configuração e check     #
-let ativar = "N"
-config.run("CREATE TABLE IF NOT EXISTS config(token text, ativado text, UNIQUE(token, ativado))")
-
-config.get("SELECT ativado ativado FROM config", function (erro, resultado) {
-    if(erro) return console.log("Um erro ocorreu enquanto solicitava dados do SQLite: " + erro.message)
-    if(resultado.ativado === "Y") ativar = "Y"
-    else(console.log("Aplicação desativada!"))
-});
+global.lista = [];
+global.tocando = false;
 //##############################################################
 
 //#     Login do cliente    #
 const client = new Discord.Client();
-async function logar(ativado) {
-    config.get("SELECT token token FROM config", function (erro, resultado) {
-        if(erro) return console.log("Um erro ocorreu enquanto solicitava dados do SQLite: " + erro.message)
-        if(resultado.token) return resultado.token
-        else return client.login(resultado.token).catch(e => console.log("TOKEN INVÁLIDO: " + e))
-    });
-}
-logar(ativar)
+client.login("NTk3MDkzMDM4MjE2NDQ1OTcz.Xby27g.oRtOs2TQ-0A5Re85Md0Pyiy06qs")
+
+//##############################################################
+
+//#     Sistema de eventos em arquivos separados (event handler)    #
+const eventos = fs.readdirSync("./eventos/")
+
+eventos.forEach(async arquivo =>{
+    if(arquivo.split(".").slice(-1)[0] !== "js") return;
+    console.log("ARQUIVO DE EVENTO " + arquivo + " IMPORTADO!")
+    const eventoNome = arquivo.split(".")[0];
+    const evento = await require("./eventos/" + arquivo);
+    client.on(eventoNome, evento.bind(null, client));
+});
+//##############################################################
+
+//#     Sistema de comandos em arquivos separados (command handler)    #
+const comandos = fs.readdirSync("./comandos/")
+
+client.comandos = new Discord.Collection();
+client.aliases = new Discord.Collection();
+
+comandos.forEach(async arquivo =>{
+    try{
+        const puxar = require("./comandos/" + arquivo)
+        if(arquivo.split(".").slice(-1)[0] !== "js") return;
+        console.log("ARQUIVO DE COMANDO " + arquivo + " IMPORTADO!")
+        client.comandos.set(puxar.configuração.nome, puxar)
+        puxar.configuração.aliases.forEach(function (alias){
+            client.aliases.set(alias, puxar.configuração.nome)
+        })
+    }
+    catch (e) {
+        console.log("erro: " + e)
+    }
+});
 //##############################################################
