@@ -4,7 +4,7 @@
   "description": "Um bot para Discord desenvolvido usando a API do Discord.",
   "main": "index.js",
   "scripts": {
-    "0": "0"
+    "start": "node ."
   },
   "nodemonConfig": {
     "ignore": [
